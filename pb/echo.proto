@@ -8,7 +8,7 @@ service EchoService {
 }
 
 message Msg {
-    string body = 1;
+    string Body = 1;
 }
 
 
