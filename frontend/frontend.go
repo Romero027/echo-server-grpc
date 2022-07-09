@@ -26,11 +26,11 @@ func handler(writer http.ResponseWriter, request *http.Request) {
 	c := echo.NewEchoServiceClient(conn)
 
 	message := echo.Msg{
-		// body: request.URL.String()
-		Body: "Hello",
+		Body: request.URL.String(),
+		// Body: "Hello",
 	}
 
-	response, err := c.Echo(context.Backgroud(), &message)
+	response, err := c.Echo(context.Background(), &message)
 	if err != nil {
 		log.Fatalf("Erro when calling echo: %s", err)
 	}

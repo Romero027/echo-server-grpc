@@ -11,22 +11,22 @@ import (
 )
 
 type server struct {
-	port string
+	pb.UnimplementedEchoServiceServer
 }
 
-func (s *server) echo(ctx context.Context, x *pb.Message) (*pb.Message, error) {
-	log.Printf("[%s] got: [%s]", s.port, x.GetMsg())
+func (s *server) Echo(ctx context.Context, x *pb.Msg) (*pb.Msg, error) {
+	log.Printf("got: [%s]", x.GetBody())
 	return x, nil
 }
 
-func runServer(port string) {
+func main() {
 	lis, err := net.Listen("tcp", ":9000")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
 
-	pb.RegisterEchoServiceServer(s, &server{port})
+	pb.RegisterEchoServiceServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
