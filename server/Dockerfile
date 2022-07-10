@@ -8,8 +8,8 @@ RUN go mod download
 
 COPY frontend.go ./
 
-RUN go build -o /frontend
+RUN go build -o /server
 
-EXPOSE 8080
+EXPOSE 9000
 
-CMD [ "/frontend" ]
+CMD [ "/server" ]
