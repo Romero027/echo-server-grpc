@@ -11,7 +11,5 @@ RUN go build -o /frontend frontend.go
 #RUN go build -o /server server.go
 
 EXPOSE 8080
-#EXPOSE 9000
 
 CMD [ "/frontend" ]
-#CMD ["/server"]

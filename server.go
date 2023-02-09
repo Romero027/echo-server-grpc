@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
 
@@ -25,6 +26,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
+	fmt.Printf("Starting server at port 9000\n")
 
 	pb.RegisterEchoServiceServer(s, &server{})
 	if err := s.Serve(lis); err != nil {

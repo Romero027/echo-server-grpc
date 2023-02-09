@@ -14,10 +14,8 @@ import (
 func handler(writer http.ResponseWriter, request *http.Request) {
 	fmt.Printf("%s\n", request.URL.String())
 
-	fmt.Fprintf(writer, "Echo request finished!\n")
-
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial("server:9000", grpc.WithInsecure())
+	conn, err := grpc.Dial(":9000", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("could not connect: %s", err)
 	}
@@ -35,6 +33,7 @@ func handler(writer http.ResponseWriter, request *http.Request) {
 		log.Fatalf("Erro when calling echo: %s", err)
 	}
 	log.Printf("Response from server: %s", response.Body)
+	fmt.Fprintf(writer, "Echo request finished! Length of the request is %d\n", len(response.Body))
 }
 
 func main() {
