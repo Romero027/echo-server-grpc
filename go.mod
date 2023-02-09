@@ -3,14 +3,16 @@ module github.com/Romero027/echo-server-grpc
 go 1.18
 
 require (
-	google.golang.org/grpc v1.47.0
-	google.golang.org/protobuf v1.28.0
+	github.com/Romero027/grpc-go v0.0.0-00010101000000-000000000000
+	golang.org/x/net v0.5.0
+	google.golang.org/protobuf v1.28.1
 )
 
 require (
 	github.com/golang/protobuf v1.5.2 // indirect
-	golang.org/x/net v0.0.0-20220708220712-1185a9018129 // indirect
-	golang.org/x/sys v0.0.0-20220708085239-5a0f0661e09d // indirect
-	golang.org/x/text v0.3.7 // indirect
-	google.golang.org/genproto v0.0.0-20220708155623-50e5f4832e73 // indirect
+	golang.org/x/sys v0.4.0 // indirect
+	golang.org/x/text v0.6.0 // indirect
+	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
 )
+
+replace github.com/Romero027/grpc-go => /users/xzhu/grpc-go

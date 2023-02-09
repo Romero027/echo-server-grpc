@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"golang.org/x/net/context"
-	"google.golang.org/grpc"
+	grpc "github.com/Romero027/grpc-go"
 
 	echo "github.com/Romero027/echo-server-grpc/pb"
 )
