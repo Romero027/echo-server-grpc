@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+        "time"
+        "encoding/json"
+        
 
 	"golang.org/x/net/context"
 	grpc "github.com/Romero027/grpc-go"
@@ -11,11 +14,27 @@ import (
 	echo "github.com/Romero027/echo-server-grpc/pb"
 )
 
+
+func UnaryClientInterceptor(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) (err error) {
+	start := time.Now()
+ 	defer func() {
+  		in, _ := json.Marshal(req)
+  		out, _ := json.Marshal(reply)
+  		inStr, outStr := string(in), string(out)
+  		duration := int64(time.Since(start).Microseconds())
+
+  		log.Println("grpc", method, "in", inStr, "out", outStr, "err", err, "duration/us", duration)
+
+ }()
+
+	return invoker(ctx, method, req, reply, cc, opts...)
+}
+
 func handler(writer http.ResponseWriter, request *http.Request) {
 	fmt.Printf("%s\n", request.URL.String())
 
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(":9000", grpc.WithInsecure())
+	conn, err := grpc.Dial(":9000", grpc.WithInsecure(),grpc.WithUnaryInterceptor(UnaryClientInterceptor),)
 	if err != nil {
 		log.Fatalf("could not connect: %s", err)
 	}
